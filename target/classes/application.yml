@@ -4,3 +4,4 @@ spring:
     username: root
     password: root
     port: 5672
+    publisher-confirm-type: correlated #开启生产者给交换机的回调
