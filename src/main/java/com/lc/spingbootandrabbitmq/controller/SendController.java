@@ -66,9 +66,14 @@ public class SendController {
         CorrelationData correlationData = new CorrelationData("1");
         rabbitTemplate
                 .convertAndSend(ConfromQueueConfig.EXCHANGE_CONF,
-                        ConfromQueueConfig.ROUT_KEY,
+                        ConfromQueueConfig.ROUT_KEY + 1,
                         "发送的消息是"+message ,correlationData);
     }
+
+//    @GetMapping("/def/{message}")
+//    public void sendMsg(){
+//        log.info("发送到消息是");
+//    }
 
 
 

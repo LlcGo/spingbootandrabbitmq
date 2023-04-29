@@ -5,3 +5,4 @@ spring:
     password: root
     port: 5672
     publisher-confirm-type: correlated #开启生产者给交换机的回调
+    publisher-returns: true #设置路由失败消息回退

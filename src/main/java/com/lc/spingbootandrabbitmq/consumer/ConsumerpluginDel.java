@@ -15,7 +15,7 @@ import java.util.Date;
  * @Date 2023/4/28
  * @Description
  */
-@Component
+//@Component
 @Slf4j
 public class ConsumerpluginDel {
     @RabbitListener(queues = TtlQueuePluginConfig.DELAYED_QUEUE)

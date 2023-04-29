@@ -13,7 +13,7 @@ import java.util.Date;
  * @Date 2023/4/26
  * @Description
  */
-@Component
+//@Component
 @Slf4j
 public class ConsumerListenDead {
 

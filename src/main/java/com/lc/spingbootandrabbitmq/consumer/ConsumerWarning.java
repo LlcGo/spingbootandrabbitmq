@@ -8,18 +8,17 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author Lc
- * @Date 2023/4/28
+ * @Date 2023/4/29
  * @Description
  */
 @Component
 @Slf4j
-public class ConsumerConfirm {
+public class ConsumerWarning {
 
-    @RabbitListener(queues = ConfromQueueConfig.CONFORM_QUEUE)
-    public void receiveMessage(Message message){
+    //报警
+    @RabbitListener(queues = ConfromQueueConfig.WARING_QUEUE)
+    public void warning(Message message){
         String msg = new String(message.getBody());
-        log.info("收到的消息是{}", msg);
+        log.info("报警队列收到的消息:{}",msg);
     }
-
-
 }

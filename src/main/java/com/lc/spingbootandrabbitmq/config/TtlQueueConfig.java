@@ -12,7 +12,7 @@ import java.util.HashMap;
  * @Date 2023/4/26
  * @Description
  */
-@Configuration
+//@Configuration
 public class TtlQueueConfig {
     public static final String X_EXCHANGE = "X";
     public static final String Y_EXCHANGE = "Y";

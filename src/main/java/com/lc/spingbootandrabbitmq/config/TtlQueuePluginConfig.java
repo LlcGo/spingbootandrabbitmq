@@ -14,7 +14,7 @@ import java.util.HashMap;
  * @Description
  */
 
-@Configuration
+//@Configuration
 public class TtlQueuePluginConfig {
     //基于插件的交换机
     public static final String DELAYED_CHANGE = "delayed.exchange";

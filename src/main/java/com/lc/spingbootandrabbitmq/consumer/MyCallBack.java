@@ -1,12 +1,14 @@
 package com.lc.spingbootandrabbitmq.consumer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.core.ReturnedMessage;
 import org.springframework.amqp.rabbit.connection.CorrelationData;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * @Author Lc
@@ -15,7 +17,7 @@ import javax.annotation.Resource;
  */
 @Component //第一步
 @Slf4j
-public class MyCallBack implements RabbitTemplate.ConfirmCallback {
+public class MyCallBack implements RabbitTemplate.ConfirmCallback,RabbitTemplate.ReturnsCallback{
 
     //将这个内部类注入实现了类
     @Resource //第二步
@@ -24,6 +26,7 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback {
     @PostConstruct //第三步
     public void init(){
         rabbitTemplate.setConfirmCallback(this);
+        rabbitTemplate.setReturnsCallback(this);
     }
     /**
      *
@@ -35,9 +38,15 @@ public class MyCallBack implements RabbitTemplate.ConfirmCallback {
     public void confirm(CorrelationData correlationData, boolean flag, String errMsg) {
         String id = correlationData != null ? correlationData.getId() : "";
         if(flag){
-          log.info("成功接收到消息 ID为:{}",id);
+          log.info("交换机告诉生产者成功接收到消息 ID为:{}",id);
         }else {
-            log.info("接收消息失败，失败的ID为:{}，原因是:{}",id,errMsg);
+            log.info("交换机告诉生产者接收消息失败，失败的ID为:{}，原因是:{}",id,errMsg);
         }
+    }
+
+    @Override
+    public void returnedMessage(ReturnedMessage returnedMessage) {
+        log.info("是{}路由路线出现问题,回退的消息是:{},交换机是:{},回退的id是:{}",returnedMessage.getRoutingKey()
+                , Arrays.toString(returnedMessage.getMessage().getBody()),returnedMessage.getExchange(),returnedMessage.getReplyCode());
     }
 }
